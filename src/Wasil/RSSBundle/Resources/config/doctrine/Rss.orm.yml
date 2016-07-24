@@ -1,0 +1,36 @@
+Wasil\RSSBundle\Entity\Rss:
+  type: entity
+  table: rss
+  manyToOne:
+        feed:
+            targetEntity: Feed
+            inversedBy: entries
+            joinColumn:
+                name: feed_id
+                referencedColumnName: id
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    title:
+      type: string
+      length: 255
+      unique: true
+    link:
+      type: string
+      length: 355
+    description:
+      type: string
+      length: 600
+    author:
+      type: string
+      length: 255
+    pubDate:
+      type: datetime
+    feed_id:
+      type: integer
+      length: 2
+    read:
+      type: integer
+      length: 2

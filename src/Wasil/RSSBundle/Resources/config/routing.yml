@@ -1,0 +1,15 @@
+wasil_rss_homepage:
+    pattern:  /
+    defaults: { _controller: WasilRSSBundle:Rss:index }
+
+WasilRSSBundle_rss:
+        resource: "@WasilRSSBundle/Resources/config/routing/rss.yml"
+        prefix:   /rss
+
+WasilRSSBundle_feed:
+        resource: "@WasilRSSBundle/Resources/config/routing/feed.yml"
+        prefix:   /feed
+
+wasil_rss_update:
+    pattern:  /update
+    defaults: { _controller: WasilRSSBundle:Default:update }

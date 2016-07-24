@@ -1,0 +1,19 @@
+Wasil\RSSBundle\Entity\Feed:
+  type: entity
+  table: feeds
+  oneToMany:
+        entries:
+            targetEntity: Rss
+            mappedBy: feed
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 255
+      unique: true
+    url:
+      type: string
+      length: 355

@@ -1,0 +1,20 @@
+{% extends 'WasilRSSBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for feed in feeds %}
+    <blockquote>
+        <article>
+            <header>
+                <a href="{{ feed.link }}" target="_blank" target="_blank">{{ feed.title }}</a>
+                <time>{{ feed.pubDate | date('j l Y') }}</time>
+            </header>
+            <p>{{ feed | raw }}</p>
+        </article>
+    </blockquote>
+    {% else %}
+        <p>Not news :(</p>
+    {% endfor %}
+
+{{ dump(feeds) }}
+
+{% endblock %}

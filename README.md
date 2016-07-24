@@ -1,3 +1,6 @@
-# symfony-rss-bundle
+RSS reader
+========================
 
-The "Symfony RSS" is a reference application created to show how to develop RSS bundle.
+App based on Symfony2 with SQLite backend.
+
+So far project is in early development for example there is no authentication or security whatsoever ;)

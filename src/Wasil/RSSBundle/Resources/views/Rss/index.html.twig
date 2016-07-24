@@ -1,0 +1,76 @@
+{% extends 'WasilRSSBundle::layout.html.twig' %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('bundles/wasilrss/js/javascript.js') }}"></script>
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+<div class="sidebar">
+    <ul>
+        {% for feed in feeds %}
+            <li>
+                <i class="icon-rss"></i><a href="{{ path('feed_show', { 'id': feed.id }) }}">{{ feed.name }}</a>
+                <a href="{{ feed.url }}" target="_blank"></a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block body %}
+    {% if rsss|length > 0 %}
+        {% set day = rsss[0].pubDate | date('j/m/Y') %}
+        <u><i>{{ rsss[0].pubDate | date('M jS Y') }}, Today</i></u>
+    {% endif %}
+    {% for rss in rsss %}
+
+        {% if rss.pubDate | date('j/m/Y') != day %}
+        <br />
+        <br />
+            <u><i>{{ rss.pubDate | date('M jS Y, l') }}</i></u>
+            {% set day = rss.pubDate | date('j/m/Y')  %}
+        {% endif %}
+        <article id="article_{{ rss.id }}" class="{% if rss.read == 0 %}unread{% else %}read{% endif %}">
+            <header>
+                {% if rss.read == 0 %}
+                    <i class="icon-asterisk"></i>
+                {% endif %}
+                <span>
+                    {{ rss.title }} |
+                </span>
+                <a href="{{ rss.link }}" target="_blank" target="_blank">{{ rss.getFeed.name }} <i class="icon-external-link"></i></a>
+                <time>
+                    <i>
+                        {% if rss.pubDate | date('H:i') != '00:00' %}
+                            {{ rss.pubDate | date('H:i') }}
+                        {% endif %}
+                    </i>
+                </time>
+            </header>
+            <span class="text">
+                <p>{{ rss.description | raw }}</p>
+                <p><a href="{{ rss.link }}" target="_blank" target="_blank">read more...</a></p>
+            </span>
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    jQuery("#article_{{ rss.id }}").click(function(){
+                        if (jQuery("#article_{{ rss.id }}").hasClass('unread')) {
+                            setRead("{{ path('rss_read', { 'id': rss.id, 'read': 1 }) }}");
+                            jQuery("#article_{{ rss.id }}").removeClass('unread');
+                            jQuery("#article_{{ rss.id }}").addClass('read');
+                            jQuery("#article_{{ rss.id }} header i.icon-asterisk").remove();
+                        }
+                    });
+                });
+            </script>
+        </article>
+    {% else %}
+        <h2>No items yet... <small>if you haven't yet, please add a feed and hit refresh :)</small></h2> 
+    {% endfor %}
+
+{# dump(feeds) #}
+
+{% endblock %}

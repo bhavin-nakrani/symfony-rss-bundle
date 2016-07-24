@@ -1,0 +1,4 @@
+wasil_rssrss:
+    resource: "@WasilRSSBundle/Resources/config/routing.yml"
+    prefix:   /
+

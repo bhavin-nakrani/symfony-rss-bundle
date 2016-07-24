@@ -1,0 +1,144 @@
+#navigation
+{
+    z-index: 999;
+}
+
+#content
+{
+    min-height: 300px;
+    padding: 10px;
+}
+
+#footer
+{
+
+
+}
+
+#messages
+{
+
+}
+
+article
+{
+    padding: 10px;
+    margin: 10px 0 0 0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+article:hover header
+{
+    /*background-color: rgba(0, 0, 0, 0.01);*/
+    text-decoration: underline;
+}
+
+article .unread
+{
+    border-left: 3px solid #5f9490;
+}
+
+article header:hover
+{
+    cursor: pointer;
+}
+
+article img
+{
+    display: none;
+}
+
+blockquote:before, blockquote:after
+{
+    color: #bada55;
+}
+
+blockquote article
+{
+    font-weight: normal;
+}
+
+article time
+{
+    float: right;
+    color: #333;
+}
+
+article a
+{
+    text-decoration: none;
+}
+
+.read
+{
+    /*float:left;*/
+}
+
+article header i
+{
+    color: #bada55;
+}
+
+.unread
+{
+    font-weight: bold;
+}
+
+#sidebar
+{
+    padding: 10px;
+    /*position: fixed;*/
+}
+
+#bigButton
+{
+    margin: 0 0 10px 0;
+}
+
+#bigButton a
+{
+    width: 100%;
+}
+
+#smallButtons
+{
+}
+
+#smallButtons a
+{
+    margin: 3px 0 0 0;
+    width: 49%;
+}
+
+.sidebar
+{
+    margin: 20px 0 0 0;
+}
+
+#sidr
+{
+    padding: 10px;
+}
+
+.sidr ul li a, .sidr ul li span
+{
+    display: inline;
+}
+
+.sidr ul li:hover > a, .sidr ul li:hover > span, .sidr ul li.active > a, .sidr ul li.active > span, .sidr ul li.sidr-class-active > a, .sidr ul li.sidr-class-active > span {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: none;
+}

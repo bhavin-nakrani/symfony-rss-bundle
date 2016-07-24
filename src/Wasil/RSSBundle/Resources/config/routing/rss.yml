@@ -1,0 +1,34 @@
+rss:
+    pattern:  /
+    defaults: { _controller: "WasilRSSBundle:Rss:index" }
+
+rss_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WasilRSSBundle:Rss:show" }
+
+rss_new:
+    pattern:  /new
+    defaults: { _controller: "WasilRSSBundle:Rss:new" }
+
+rss_create:
+    pattern:  /create
+    defaults: { _controller: "WasilRSSBundle:Rss:create" }
+    requirements: { _method: post }
+
+rss_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WasilRSSBundle:Rss:edit" }
+
+rss_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WasilRSSBundle:Rss:update" }
+    requirements: { _method: post|put }
+
+rss_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WasilRSSBundle:Rss:delete" }
+    requirements: { _method: post|delete }
+
+rss_read:
+    pattern:  /{id}/read/{read}
+    defaults: { _controller: "WasilRSSBundle:Rss:read" }

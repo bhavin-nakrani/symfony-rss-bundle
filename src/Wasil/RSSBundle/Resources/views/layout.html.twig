@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      {% block title %}
+        Wasil RSS
+      {% endblock %}
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block stylesheets %}
+      <!-- GroundworkCSS -->
+      <link rel="stylesheet" href="{{ asset('bundles/wasilrss/css/groundwork.css') }}" type="text/css" media="all" />
+      <link rel="stylesheet" href="{{ asset('bundles/wasilrss/js/sidr/stylesheets/jquery.sidr.light.css') }}" type="text/css" media="all" />
+      <link rel="stylesheet" href="{{ asset('bundles/wasilrss/css/style.css') }}" type="text/css" media="all" />
+      <!--[if IE]>
+      <link type="text/css" rel="stylesheet" href="{{ asset('bundles/wasilrss/css/groundwork-ie.css') }}">
+      <![endif]-->
+      <!--[if lt IE 9]>
+      <script type="text/javascript" src="{{ asset('bundles/wasilrss/js/libs/html5shiv.min.js') }}"></script>
+      <![endif]-->
+      <!--[if IE 7]>
+      <link type="text/css" rel="stylesheet" href="{{ asset('bundles/wasilrss/css/font-awesome-ie7.min.css') }}">
+      <![endif]-->
+    {% endblock %}
+    {% block javascripts %}
+      <!-- Modernizr -->
+      <script src="{{ asset('bundles/wasilrss/js/libs/modernizr-2.6.2.min.js') }}"></script>
+      <!-- jQuery -->
+      <script src="{{ asset('bundles/wasilrss/js/libs/jquery-1.8.2.min.js') }}"></script>
+      <script src="{{ asset('bundles/wasilrss/js/sidr/jquery.sidr.js') }}"></script>
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('bundles/wasilrss/images/favicon.ico') }}" />
+
+    <link rel="apple-touch-icon" href="{{ asset('bundles/wasilrss/images/apple-icons/apple-touch-icon-precomposed.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('bundles/wasilrss/images/apple-icons/apple-touch-icon-57x57-precomposed.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('bundles/wasilrss/images/apple-icons/apple-touch-icon-72x72-precomposed.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('bundles/wasilrss/images/apple-icons/apple-touch-icon-114x114-precomposed.png') }}" />
+    <link rel="apple-touch-icon" href="{{ asset('bundles/wasilrss/images/apple-icons/apple-touch-icon-144x144-precomposed.png') }}" />
+
+  </head>
+  <body>
+    <div id="content" class="">
+      <div id="container" class="row">
+        <div id="messages">
+          {% for flashMessage in app.session.flashbag.get('notice') %}
+              <div class="message zero align-center">
+                  {{ flashMessage }}
+              </div>
+          {% endfor %}
+
+          {% for flashMessage in app.session.flashbag.get('error') %}
+              <div class="error message zero align-center">
+                  {{ flashMessage }}
+              </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="sidr">
+        <span id="bigButton">
+          <a href="{{ path('wasil_rss_update') }}" class="warning square button zero align-center"><i class="icon-download-alt"></i> refresh feeds</a>
+        </span>
+        <span id="smallButtons">
+          <a href="{{ path('rss') }}" class="small square button zero align-center">rss</a>
+          <a href="{{ path('feed') }}" class="small square button zero align-center" style="float: right;">feeds</a>
+        </span>
+        <div id="sidebar">
+          {% block sidebar %}
+          {% endblock %}
+        </div>
+      </div>
+      <div class="row">
+        <a id="simple-menu" href="#sidr" class="medium square success button zero align-center"><i class="icon-cog"></i></a>
+      </div>
+      <div class="row">
+        <div id="content">
+            {% block body %}
+            {% endblock %}
+        </div>
+      </div>
+    </div>
+    <div clas="row">
+      <div id="footer" class="">
+        <div class="content">
+          &copy;wasil.org
+        </div>
+      </div>
+    </div>
+
+  <!-- scripts -->
+  <script src="{{ asset('bundles/wasilrss/js/plugins/jquery.orbit-1.4.0.js') }}"></script>
+  <script src="{{ asset('bundles/wasilrss/js/groundwork.all.js') }}"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+        // sidr
+        jQuery('#simple-menu').sidr();
+    });
+  </script>
+  </body>
+</html>

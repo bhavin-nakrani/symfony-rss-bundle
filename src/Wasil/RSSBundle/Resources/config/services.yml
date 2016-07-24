@@ -1,0 +1,7 @@
+parameters:
+#    wasil_rss.example.class: Wasil\RSSBundle\Example
+
+services:
+#    wasil_rss.example:
+#        class: %wasil_rss.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

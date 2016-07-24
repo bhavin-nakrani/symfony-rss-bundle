@@ -1,0 +1,15 @@
+parameters:
+    database_driver: pdo_sqlite
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: rss
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: ed8db4cc31d5b8558ff343782c2aa376d16dc460
+    database_path: "%kernel.root_dir%/data/db.sqlite"
+    item_limit: 10
