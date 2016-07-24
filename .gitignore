@@ -5,6 +5,7 @@
 /build/
 /vendor/
 /bin/
+/.idea
 /composer.phar
 composer.lock
 /app/data/*.sqlite
