@@ -4,10 +4,8 @@ namespace Wasil\RSSBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Wasil\RSSBundle\Entity\Rss;
 use Wasil\RSSBundle\Form\RssType;
-
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -83,44 +81,38 @@ class RssController extends Controller
 
     /**
      * Finds and displays a Rss entity.
-     *
+     * @param Rss $rss
+     * @return
      */
-    public function showAction($id)
+    public function showAction(Rss $rss)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WasilRSSBundle:Rss')->find($id);
-
-        if (!$entity) {
+        if (!$rss) {
             throw $this->createNotFoundException('Unable to find Rss entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($rss->getId());
 
         return $this->render('WasilRSSBundle:Rss:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $rss,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Rss entity.
-     *
+     * @param Rss $rss
+     * @return
      */
-    public function editAction($id)
+    public function editAction(Rss $rss)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WasilRSSBundle:Rss')->find($id);
-
-        if (!$entity) {
+        if (!$rss) {
             throw $this->createNotFoundException('Unable to find Rss entity.');
         }
 
-        $editForm = $this->createForm(new RssType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createForm(new RssType(), $rss);
+        $deleteForm = $this->createDeleteForm($rss->getId());
 
         return $this->render('WasilRSSBundle:Rss:edit.html.twig', array(
-            'entity'      => $entity,
+            'entity'      => $rss,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -197,6 +189,9 @@ class RssController extends Controller
         ;
     }
 
+    /**
+     * @return mixed
+     */
     private function getFeedsList()
     {
         $em = $this->getDoctrine()->getManager();
@@ -207,22 +202,25 @@ class RssController extends Controller
             ->getQuery()->getResult();
     }
 
-    public function readAction($id, $read)
+    /**
+     * @param Rss $rss
+     * @param $read
+     * @return Response
+     */
+    public function readAction(Rss $rss, $read)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WasilRSSBundle:Rss')->find($id);
-
-        if (!$entity) {
+        if (!$rss) {
             throw $this->createNotFoundException('Unable to find Rss entity.');
         }
 
-        $entity->setRead($read);
+        $rss->setRead($read);
 
-        $em->persist($entity);
+        $em->persist($rss);
         $em->flush();
 
-        $return=json_encode(true); //jscon encode the array
+        $return=json_encode(true); //json encode the array
         return new Response($return,200,array('Content-Type'=>'application/json'));
 }
 }
