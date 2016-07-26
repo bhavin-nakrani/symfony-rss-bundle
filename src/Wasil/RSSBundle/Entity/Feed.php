@@ -96,12 +96,12 @@ class Feed
     /**
      * Add entries
      *
-     * @param \Wasil\RSSBundle\Entity\Rss $entries
+     * @param Rss $entries
      * @return Feed
      */
-    public function addEntrie(\Wasil\RSSBundle\Entity\Rss $entries)
+    public function addEntrie(Rss $entries)
     {
-        $this->entries[] = $entries;
+        $this->entries->add($entries);
     
         return $this;
     }
@@ -109,9 +109,9 @@ class Feed
     /**
      * Remove entries
      *
-     * @param \Wasil\RSSBundle\Entity\Rss $entries
+     * @param Rss $entries
      */
-    public function removeEntrie(\Wasil\RSSBundle\Entity\Rss $entries)
+    public function removeEntrie(Rss $entries)
     {
         $this->entries->removeElement($entries);
     }

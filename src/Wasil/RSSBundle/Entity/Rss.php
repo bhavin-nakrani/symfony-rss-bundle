@@ -50,7 +50,7 @@ class Rss
     private $read;
 
     /**
-     * @var \Wasil\RSSBundle\Entity\Feed
+     * @var Feed
      */
     private $feed;
 
@@ -229,10 +229,10 @@ class Rss
     /**
      * Set feed
      *
-     * @param \Wasil\RSSBundle\Entity\Feed $feed
+     * @param Feed|null $feed
      * @return Rss
      */
-    public function setFeed(\Wasil\RSSBundle\Entity\Feed $feed = null)
+    public function setFeed(Feed $feed = null)
     {
         $this->feed = $feed;
     
@@ -242,7 +242,7 @@ class Rss
     /**
      * Get feed
      *
-     * @return \Wasil\RSSBundle\Entity\Feed 
+     * @return Feed
      */
     public function getFeed()
     {
