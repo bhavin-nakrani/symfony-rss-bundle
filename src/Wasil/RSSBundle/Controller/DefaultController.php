@@ -22,21 +22,16 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $feedsDbRaw = $em->getRepository('WasilRSSBundle:Feed')->findAll();
-
+        $entities = $em->getRepository('WasilRSSBundle:Rss')->findAll();
         $itemsCount = 0;
-        $em = $this->getDoctrine()->getManager();
         foreach ($feedsDbRaw as $fdr) {
             $content = file_get_contents($fdr->getUrl());
             $feed = simplexml_load_string($content);
-
-
-            $entities = $em->getRepository('WasilRSSBundle:Rss')->findAll();
 
             $titles = array();
             foreach ($entities as $en) {
                 $titles[] = $en->getTitle();
             }
-
 
             $items =array();
             foreach($feed->channel->item as $item) {
@@ -44,7 +39,6 @@ class DefaultController extends Controller
             }
 
             $itemLimit = $this->container->getParameter('item_limit');
-
             $items = array_slice($items, 0, $itemLimit);
 
             foreach ($items as $item) {
@@ -83,8 +77,7 @@ class DefaultController extends Controller
         try {
             $em->flush(); 
         } catch (\Exception $e) {
-            // echo $e->getMessage();
-            // break;
+             echo $e->getMessage();
         }
         return $this->redirect($this->generateUrl('rss'));
     }
