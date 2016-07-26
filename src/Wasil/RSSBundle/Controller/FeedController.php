@@ -4,7 +4,6 @@ namespace Wasil\RSSBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Wasil\RSSBundle\Entity\Feed;
 use Wasil\RSSBundle\Form\FeedType;
 
@@ -31,7 +30,8 @@ class FeedController extends Controller
 
     /**
      * Creates a new Feed entity.
-     *
+     * @param Request $request
+     * @return
      */
     public function createAction(Request $request)
     {
@@ -70,44 +70,30 @@ class FeedController extends Controller
 
     /**
      * Finds and displays a Feed entity.
-     *
+     * @param Feed $feed
+     * @return
      */
-    public function showAction($id)
+    public function showAction(Feed $feed)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WasilRSSBundle:Feed')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Feed entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($feed);
 
         return $this->render('WasilRSSBundle:Feed:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $feed,
+            'delete_form' => $deleteForm->createView()));
     }
 
     /**
      * Displays a form to edit an existing Feed entity.
-     *
+     * @param Feed $feed
+     * @return
      */
-    public function editAction($id)
+    public function editAction(Feed $feed)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WasilRSSBundle:Feed')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Feed entity.');
-        }
-
-        $editForm = $this->createForm(new FeedType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createForm(new FeedType(), $feed);
+        $deleteForm = $this->createDeleteForm($feed);
 
         return $this->render('WasilRSSBundle:Feed:edit.html.twig', array(
-            'entity'      => $entity,
+            'entity'      => $feed,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -115,31 +101,27 @@ class FeedController extends Controller
 
     /**
      * Edits an existing Feed entity.
-     *
+     * @param Request $request
+     * @param Feed $feed
+     * @return
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Feed $feed)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WasilRSSBundle:Feed')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Feed entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new FeedType(), $entity);
+        $deleteForm = $this->createDeleteForm($feed);
+        $editForm = $this->createForm(new FeedType(), $feed);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($feed);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('feed_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('feed_edit', array('id' => $feed->getId())));
         }
 
         return $this->render('WasilRSSBundle:Feed:edit.html.twig', array(
-            'entity'      => $entity,
+            'entity'      => $feed,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -147,22 +129,18 @@ class FeedController extends Controller
 
     /**
      * Deletes a Feed entity.
-     *
+     * @param Request $request
+     * @param Feed $feed
+     * @return
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Feed $feed)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($feed);
         $form->bind($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WasilRSSBundle:Feed')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Feed entity.');
-            }
-
-            $em->remove($entity);
+            $em->remove($feed);
             $em->flush();
         }
 
@@ -172,13 +150,12 @@ class FeedController extends Controller
     /**
      * Creates a form to delete a Feed entity by id.
      *
-     * @param mixed $id The entity id
-     *
+     * @param Feed $feed
      * @return Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm(Feed $feed)
     {
-        return $this->createFormBuilder(array('id' => $id))
+        return $this->createFormBuilder(array('id' => $feed->getId()))
             ->add('id', 'hidden')
             ->getForm()
         ;
