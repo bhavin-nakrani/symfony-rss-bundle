@@ -52,7 +52,7 @@
             </header>
             <span class="text">
                 <p>{{ rss.description | raw }}</p>
-                <p><a href="{{ rss.link }}" target="_blank" target="_blank">read more...</a></p>
+                <p><a href="{{ rss.link }}" target="_blank">read more...</a></p>
             </span>
             <script type="text/javascript">
                 jQuery(document).ready(function() {
@@ -70,7 +70,4 @@
     {% else %}
         <h2>No items yet... <small>if you haven't yet, please add a feed and hit refresh :)</small></h2> 
     {% endfor %}
-
-{# dump(feeds) #}
-
 {% endblock %}
